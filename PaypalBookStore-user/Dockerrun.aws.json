@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "kjabs5/awscodebuild-bookstoreapp",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8083"
+    }
+  ]
+}
