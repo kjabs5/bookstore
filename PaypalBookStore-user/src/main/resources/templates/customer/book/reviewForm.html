@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400&display=swap"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Bree+Serif&display=swap"
+	rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"
+	integrity="sha256-JtQPj/3xub8oapVMaIijPNoM0DHoAtgh/gwFYuN5rik="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
+	integrity="sha256-jDnOKIOq2KNsQZTcBTEnsp76FnfMEttF6AV2DF2fFNE="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<title>Static Website1</title>
+
+
+
+</head>
+
+<body>
+<section id="header">
+	
+	<div th:replace="fragments_customer :: customer_menu"></div>
+
+
+	
+
+	</section>
+
+	<section id="reviewForm">
+	  <div align="center">
+		<form th:action="@{/Book/ReviewTheBook}" th:object="${review}" method="post">
+			<table>
+
+				<tr>
+					<td><h2 class="mx-2">Your Review</h2></td>
+					<td>&nbsp;</td>
+
+					<td>
+						<h2><span class="mr-5 ml-3 text-capitalize" sec:authentication="name"></span></h2>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3"><hr /></td>
+				</tr>
+				<tr>
+					<td colspan="3"><div id="book-title" class="mx-2">[[${book.title}]]</div></td>
+				
+				</tr>
+				<tr>
+
+
+					<td><img class="mx-3" width="240" height="300"
+							th:src="@{${book.ImagePath}}"></td>
+
+					<td>
+						<div class="my-0" id="rateYo"></div> 
+						   <input type="hidden" th:field="*{rating}"/> <br /> 
+						  <input type="hidden" name="bookId" th:value="${book.bookId}"/> <br /> 
+						<input  class="form-control my-1" th:field="*{headline}" id="headline" size="40"	placeholder="Headline or summary of your reviews (required)" /> <br />
+						<br /> 
+						<textarea class="form-control my-1" th:field="*{comment}" cols="70" id="comment"
+							rows="10" placeholder="write review details..." ></textarea>
+					</td>
+
+				</tr>
+				<tr>
+					<td colspan="3" align="center">
+
+						<button  class="my-2 btn btn-primary" type="submit">Submit</button> &nbsp; &nbsp;
+						<button class="my-2 btn btn-primary" id="buttonCancel">Cancel</button>
+
+					</td>
+				</tr>
+
+			</table>
+		</form>
+		</div>
+	</section>
+	<div th:replace="fragments_customer :: customer_footer"></div>
+</body>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		
+		$("#buttonCancel").click(function(){
+			history.go(-1);
+		});
+		
+	
+		
+
+		$(function () {
+		 
+		  $("#rateYo").rateYo({
+		    starWidth: "40px",
+		    fullStar:true,
+		    onSet:function(rating,rateYoInstance)
+		    {
+		    	$("#rating").val(rating);
+		    }
+		  });
+		 
+		});
+		
+		
+		
+	});
+
+</script>
+</html>

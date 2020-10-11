@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments_customer :: html_head(type='none')">
+
+</head>
+
+<body>
+		<section id="header">
+	
+	<div th:replace="fragments_customer :: customer_menu"></div>
+
+
+	
+
+	</section>
+	<section id="aboutBook">
+		<div class="conatiner my-3">
+			<div class="table-responsive">
+				<table class="mx-5">
+					<tr>
+					<span >	<h3 class="mx-5"><b>[[${book.title}]]</b></h3></span>
+					</tr>
+					<tr>
+					<span >	<h3 class="mx-5">by <i>[[${book.author}]]</i></h3></span>
+					</tr>
+					<tr >
+						<td><img width="240" height="300"
+							th:src="@{${book.ImagePath}}"></td>
+						<td>
+							<div class="mx-3">
+								<span
+									th:each="rating:${#strings.arraySplit(book.ratingStars,',')}">
+									<span th:if="${rating eq 'off'}"><img
+										src="../images/off.png" /></span> <span th:if="${rating eq 'on'}"><img
+										src="../images/on.png" /></span> <span th:if="${rating eq 'half'}"><img
+										src="../images/half.png" /></span>
+								     </span>
+							</div>
+							<div class="mx-3">[[${book.description}]]</div>
+						</td>
+						<td >
+						<div class="centerr">$[[${book.price}]]</div>
+						<div><a th:href="@{'/addToCart/'+${book.bookId}}"
+											class="btn btn-primary">
+											AddToCart
+										</a></div>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+	</section>
+	<section>
+	  <div class="container">
+	     <div class="around"><b>Customer Reviews</b> <a th:href="@{'/Book/Review/'+${book.bookId}}" class="mx-auto btn btn-primary">Add a review</a></div>
+	  </div>
+	  
+	  <div class="table-responsive">
+	    <table class="mx-5" th:each="review: ${book.reviews}">
+		             
+		             
+		               
+		                  <tr >
+		                    <td>
+		                       <div> <span
+									th:each="rating:${#strings.arraySplit(book.ratingStars,',')}">
+									<span th:if="${rating eq 'off'}"><img
+										src="../images/off.png" /></span> <span th:if="${rating eq 'on'}"><img
+										src="../images/on.png" /></span> <span th:if="${rating eq 'half'}"><img
+										src="../images/half.png" /></span>
+								     </span>
+						        - <b> [[${review.headline}]] </b>
+						     
+						        
+						        </div>
+		                    </td>
+		                 
+		                  
+		                  </tr>
+		                  
+		                  
+		                  <tr>
+		                    <td>
+		                       by [[${review.customer.fullname}]] on [[${review.reviewTime}]]
+		                    </td>
+		                  </tr>
+		                  
+		                  <tr>
+		                  <td> <i>[[${review.comment}]]</i></td>
+		                  </tr>
+		                  
+		                   <tr>
+		                    <td>
+		                     &nbsp;
+		                    </td>
+		                  </tr>
+		               
+		         </tr>
+		             
+		             </table>
+		          
+		             
+		          
+		         
+	  </div>
+	</section>
+
+	<div th:replace="fragments_customer :: customer_footer"></div>
+
+</body>
+<script type="text/javascript">
+   $(document).ready(function(){
+	   
+	   $("#buttonWriteReview").click(function() {
+		   
+		   window.location='/Review/'+${book.bookId};
+		   
+	   });
+	   
+      $("#buttonAddToCart").click(function() {
+		   
+		   window.location='/addToCart/'+${book.bookId};
+		   
+	   });
+	   
+   });
+
+</script>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head(type='none')">
+
+</head>
+
+<body>
+	<div class="container-fluid">
+
+		<div th:replace="fragments :: admin_menu"></div>
+		<section id="usersection">
+			<div class="userheading centerr my-3">
+				<h1>USERS INFORMATION</h1>
+			</div>
+			
+			<div class="centerr my-3">
+				<a href="/Admin/usersForm">ADD A STAFF</a>
+			</div>
+			
+			<div class="container alert alert-success text-center" th:if="${message!=null}">
+			   
+			   [[${message}]]
+			   
+			</div>
+
+			<div class="container-fluid">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-light">
+							<tr>
+								<th>SERIAL NO.</th>
+								<th>USER ID</th>
+								<th>Role</th>
+								<th>USERNAME</th>
+								<th>PASSWORD</th>
+							    
+								<th sec:authorize="hasAnyAuthority('STAFF', 'ADMIN')">Action</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="user,iterStat : ${users}">
+
+								<td th:text="${iterStat.count}" />
+								<td th:text="${user.id}" />
+								<td th:text="${user.username}"/>
+								<td th:text="${user.username}" />
+								<td th:text="${user.password}" />
+								
+								<td class="centerr"
+									sec:authorize="hasAnyAuthority('STAFF', 'ADMIN')">
+									<div>
+										<a th:href="@{'/Admin/Update/'+${user.id}}"
+											class="btn btn-primary btn-sm mb-3"> <!-- 									<a th:href="@{/Admin/UserUpdate(id=${user.id})}" -->
+											Update
+										</a>
+									</div>
+
+									<div sec:authorize="hasAuthority('ADMIN')">
+										<a th:href="@{'/Admin/delete/'+${user.id}}"
+											class="btn btn-danger btn-sm mb-3"
+											onclick="if (!(confirm('Are you sure you want to delete this?'))) return false">
+											Delete </a>
+									</div>
+								</td>
+
+
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="centerr my-3">
+					Total Items: [[${totalItems}]] - page [[${currentPage}]] of total
+					[[${totalPages}]] pages - <span class="ml-2"
+						th:each="i:${#numbers.sequence(1,totalPages)}"> 
+						<!-- 			   <a class="mx-1" th:href="@{'page/' + ${i}}">[[${i}]]</a> -->
+						<a class="mx-1" th:if="${currentPage != i}"
+						th:href="@{'/Admin/page/' + ${i}}">[[${i}]]</a> <span class="mx-1"
+						th:unless="${currentPage != i}">[[${i}]]</span>
+					</span>
+
+
+				</div>
+
+			</div>
+
+		</section>
+
+	</div>
+
+</body>
+
+</html>
+

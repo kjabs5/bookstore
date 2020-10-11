@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments_customer :: html_head(type='none')">
+
+</head>
+
+
+
+<body>
+	<section id="header">
+
+		<div th:replace="fragments_customer :: customer_menu"></div>
+
+
+
+
+	</section>
+	<hr>
+	<section id="category " class="my-3">
+		<div
+			class="container-fluid d-flex align-items-center justify-content-around">
+			<div th:each="category : ${catList}">
+				<table class="centerc">
+					<tr class="centerc category">
+
+
+						<td><a th:href="@{'/'}" th:text="${category.categoryName}"></a></td>
+
+
+					</tr>
+				</table>
+
+
+
+
+
+
+			</div>
+
+		</div>
+
+	</section>
+	<hr>
+
+	<section id="items">
+		<div class="container">
+		
+				
+				<div class="d-flex align-items-center justify-content-around  row row-cols-3 ">
+				<div th:each="book : ${booksList}">
+
+					<table class="centerc my-3">
+						<tr class="centerc">
+							<td><a th:href="@{'/bookDetails/'+${book.bookId}}"><img
+									width="128" height="164" th:src="@{${book.ImagePath}}"> </a></td>
+							<td><a th:href="@{'/bookDetails/'+${book.bookId}}"
+								th:text="${#strings.abbreviate(book.title,35)}"></a></td>
+<!-- 							<td th:text="${book.ratingStars}"></td> -->
+                                <td class="centerr">
+                                <span th:each="rating:${#strings.arraySplit(book.ratingStars,',')}">
+
+                                <span th:if="${rating eq 'off'}"><img src="../images/off.png"/></span>
+                                <span th:if="${rating eq 'on'}"><img src="../images/on.png"/></span>
+                                <span th:if="${rating eq 'half'}"><img src="../images/half.png"/></span>
+                                </span>
+                            </td>
+
+							<td th:text="${#strings.abbreviate(book.author,15)} "></td>
+							<td th:text="'$' + ${book.price}" />
+
+						</tr>
+					</table>
+				</div>
+			</div>
+				
+				
+				
+				
+			</div>
+
+      
+
+
+	
+
+
+
+	</section>
+
+	<div th:replace="fragments_customer :: customer_footer"></div>
+
+</body>
+
+</html>

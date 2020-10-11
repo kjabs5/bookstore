@@ -1,0 +1,38 @@
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+i{
+    color:lightslategrey;
+}
+
+a{
+    color:white;
+}
+
+.centerr{
+    display:flex;
+    align-items: center;
+    justify-content: center;   
+
+}
+.centerc{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;   
+
+}
+
+.adminmenu{
+	 background-color:#d3d3d3;
+	 margin-top:5px;
+	 height:120px;
+	  display:flex;
+	  align-items:center;
+	  justify-content:space-around;
+}

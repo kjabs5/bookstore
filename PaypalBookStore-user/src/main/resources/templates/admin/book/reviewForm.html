@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400&display=swap"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Bree+Serif&display=swap"
+	rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"
+	integrity="sha256-JtQPj/3xub8oapVMaIijPNoM0DHoAtgh/gwFYuN5rik="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
+	integrity="sha256-jDnOKIOq2KNsQZTcBTEnsp76FnfMEttF6AV2DF2fFNE="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	crossorigin="anonymous"></script>
+<title>Static Website1</title>
+
+
+
+</head>
+
+<body>
+	<section id="header">
+		<div class="header">
+			<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+				<div class="form-inline ml-5">
+					<a class="navbar-brand brandhover" href="#">PAYPAL-BOOKSTORE</a>
+
+				</div>
+
+				<form class="form-inline ml" action="#">
+					<input class="form-control mr-sm-2" type="text" size="45"
+						placeholder="Search for books">
+					<button class="btn btn-success bg-light text-dark" type="submit">Search</button>
+				</form>
+				<div
+					th:with="LoggedCustomer=${#httpServletRequest.userPrincipal?.name}">
+					<div class="form-inline" th:if="${LoggedCustomer==null}">
+
+						<div class="form-inline ml-4">
+							<a href="/showMyLoginPage"><button class="btn btn-success"
+									type="submit">SIGN IN</button></a>
+
+						</div>
+
+						<div class="form-inline ml-4">
+							<a th:href="@{'Customer/registerform'}"><button
+									class="btn btn-primary" type="submit">REGISTER</button></a>
+
+						</div>
+						<div class="form-inline ml-4">
+							<a href="#"><i class="fa fa-shopping-cart fa-2x "></i> Cart </a>
+						</div>
+					</div>
+					<div class="form-inline" th:if="${LoggedCustomer!=null}">
+						<div class="centerr around" style="width: 450px">
+							<div class="form-inline ml-2">
+								<a href="#" class="hov">Welcome, <span
+									class="text-capitalize" sec:authentication="name"></span></a>
+
+							</div>
+							<div class="form-inline ml-2 ">
+								<a class="hov" th:href="@{'Customer/registerform'}"> My
+									Orders</a>
+
+							</div>
+							<div class="form-inline ml-2">
+								<a href="#"><i class="fa fa-shopping-cart fa-2x "></i> Cart
+								</a>
+							</div>
+
+							<div class="form-inline ml-2">
+								<form th:action="@{/logout}" method="post">
+									<input type="submit" value="logout" />
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+			</nav>
+
+		</div>
+
+	</section>
+
+	<section id="reviewForm">
+		<form th:action="@{/Book/reviewTheBook}" th:object="${review}" method="post">
+			<table>
+
+				<tr>
+					<td><h2>Your Review</h2></td>
+					<td>&nbsp;</td>
+
+					<td>
+						<h2>${LoggedCustomer.fullname}</h2>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3"><hr /></td>
+				</tr>
+				<tr>
+					<td colspan="3"><div id="book-title">${book.title}</div></td>
+					<br />
+				</tr>
+				<tr>
+
+
+					<td><img src="/uploads/${book.file_name }" width="240"
+						height="300" alt="ImagePreview" /></td>
+
+					<td>
+						<div id="rateYo"></div> <form:hidden path="rating" /> <form:hidden
+							path="" name="bookId" value="${book.bookId}" /> <br /> <form:input
+							path="headline" id="headline" size="40"
+							placeholder="Headline or summary of your reviews (required)" /> <br />
+						<br /> <form:textarea path="comment" cols="70" id="comment"
+							rows="10" placeholder="write review details..." />
+					</td>
+
+				</tr>
+				<tr>
+					<td colspan="3" align="center">
+
+						<button type="submit">Submit</button> &nbsp; &nbsp;
+						<button id="buttonCancel">Cancel</button>
+
+					</td>
+				</tr>
+
+			</table>
+		</form:form>
+	</section>
+	<div th:replace="fragments_customer :: customer_footer"></div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<div th:replace="fragments :: html_head(type='tag')"></div> 
+<link rel="stylesheet" th:href="@{/css/richtext.min.css}">
+<script th:src="@{/js/jquery.richtext.min.js}"></script>
+</head>
+
+<body>
+	<div class="container-fluid">
+
+		<div th:replace="fragments :: admin_menu"></div>
+		<div class="container heading centerr my-3">
+
+			<h1>BOOK REGISTRATION FORM</h1>
+
+		</div>
+
+		<section id="book_register">
+
+			<div class="container centerr">
+				<form th:action="@{/Book/registerTheBook}" th:object="${book}" method="post" enctype="multipart/form-data">
+                   <input type="hidden" th:field="*{bookId}"/>
+                     <div class="form-group row">
+                     <label for="category" class="col-sm-2 col-form-label centerr">Category</label>
+						<div class="col-sm-6"> 
+ 							<select style="width:100%;" class="form-control" required th:field="*{category.category_id}">
+ 							<option value="" label="---Select----" /> 
+ 							 <option th:each="category : ${categories}" th:value=${category.category_id} id="category" th:text="${category.categoryName}"/> 
+ 							</select>
+ 						</div> 
+ 					</div> 
+
+
+					<div class="form-group row">
+						<label for="title" class="col-sm-2 col-form-label centerr">Title</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="title"
+								placeholder="Title of the Book" th:field="*{title}" required oninvalid="this.setCustomValidity('Enter Book Name Here')"
+    oninput="this.setCustomValidity('')" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="author" class="col-sm-2 col-form-label centerr">Author</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="author"
+								placeholder="Author of the Book" th:field="*{author}" required/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="isbn" class="col-sm-2 col-form-label centerr">ISBN</label>
+						<div class="col-sm-6">
+							<input type="number" class="form-control" id="isbn"
+								placeholder="ISBN of the book" th:field="*{isbn}" required/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="price" class="col-sm-2 col-form-label centerr">Price</label>
+						<div class="col-sm-6">
+							<input type="number" class="form-control" id="price"
+								placeholder="price of the book" th:field="*{price}" required/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="publishDate" class="col-sm-2 col-form-label centerr">Date
+							Published</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="publishDate"
+								placeholder="Date of Publishment" th:field="*{publishDate}" required/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="image" class="col-sm-2 col-form-label centerr">Book
+							Image</label>
+						<div class="col-sm-6">
+							<input type="file" class="form-control-file" name="image" id="image1" accept="image/jpeg, image/png" required/>
+<!-- 							th:field="*{book_logo}" -->
+                             <img class="my-4 w-25" id="thumbnail" alt="imgPreview"/>
+						</div>
+					
+							  
+					
+							
+					
+					
+						
+					</div>
+<!-- 					<div class="form-group row"> -->
+<!-- 					 <label for="file" class="col-sm-2 col-form-label centerr"></label> -->
+<!-- 						<div class="col-sm-6"> -->
+<!-- 							  <img id="thumbnail" alt="imgPreview"/> -->
+<!-- 						</div>	 -->
+							
+					
+<!-- 					</div> -->
+
+					
+					<div class="form-group row">
+							<label for="description" class="col-sm-2 col-form-label centerr">Book Description</label>
+							<div class="col-sm-6">
+						<textarea class="form-control" id="description" rows="3" placeholder="Write some lines about the book..." required th:field="*{description}"></textarea>
+							</div>
+					</div>
+					<div class="form-group row">
+						<label for="file" class="col-sm-2 col-form-label"></label>
+						<div class="col-sm-6">
+							<button type="submit" class="btn btn-primary">Register</button>
+						</div>
+					</div>
+				</form>
+
+
+
+
+
+
+
+			</div>
+		</section>
+
+	</div>
+
+
+
+
+
+	
+
+</body>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$('#image1').change(function(){
+			
+			showImageThumbnail(this);
+		});
+		
+		$('#publishDate').datepicker();
+		$('#description').richText();
+
+		
+		
+		$("#BookForm").validate({
+			rules:{
+				category:"required",
+				title:"required",
+				author:"required",
+				isbn:"required",
+				//image:"required",
+				price:"required",
+				PublishDate:"required",
+				description:"required",
+				
+			},
+			messages:{
+				category:"Please select category",
+				title:"Please enter title of the book",
+				author:"Please enter author of the book",
+				isbn:"Please enter the isbn number",
+			    //image:"Please select the image of the book",
+				price:"Please select price of the book",
+				PublishDate:"Please select publish date",
+				description:"Please enter the description of the book"
+				
+			}
+		});
+		
+	});
+
+   function showImageThumbnail(fileInput){
+	    var file=fileInput.files[0];
+	    
+	    var reader= new FileReader();
+	    reader.onload=function(e)
+	    {
+	    	$('#thumbnail').attr('src',e.target.result);
+	    };
+	    reader.readAsDataURL(file);
+   }
+
+
+
+
+</script>
+
+</html>
+

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head(type='none')">
+
+</head>
+
+<body>
+	<div class="container-fluid">
+
+		<div th:replace="fragments :: admin_menu"></div>
+		<section id="FormSection" class="my-4">
+		 <div class="container centerr">
+
+				<div class="card" style="width: 22rem;">
+					<div class="card-header centerr">Create Staff Account</div>
+					<div class="card-body">
+						<h5 class="card-title">Create Staff Account </h5>
+						<form class="was-validated"
+						th:action="${user.id != null AND user.id gt 0 ? '/Admin/updateTheUser' : '/Admin/registerTheUser'}"
+						th:object="${user}"
+							method="post" id="CustomerForm">
+<!-- 							th:action="@{'/Admin/registerTheUser'}" --> 
+							<input  th:if="${user.id != null AND user.id gt 0}" type="hidden" th:field="*{id}" />
+							<div class="form-group">
+								<label for="uname">Username:</label> <input type="text"
+									class="form-control" id="username" placeholder="Enter username"
+									th:field="*{username}" required>
+
+
+							</div>
+							<div class="form-group">
+								<label for="pwd">Password:</label> <input type="password"
+									class="form-control" id="password" placeholder="Enter password"
+									th:field="*{password}" required>
+
+
+							</div>
+							<div class="form-group">
+								<label for="pwd">Re-enter Password:</label> <input
+									type="password" class="form-control" name="confirmPassword" id="confirmPassword"
+									placeholder="Re-enter password" required>
+
+
+							</div>
+							<div class="form-group">
+								<label for="pwd">Password Hint:</label> <input type="text"
+									class="form-control" id="passwordHint"
+									placeholder="Password Hint" th:field="*{password_hint}"
+									required>
+
+
+							</div>
+							<div class="centerr">
+								<button type="submit" class="btn btn-warning">
+<!-- 								Create Staff Account -->
+								<span th:utext="${user.id != null AND user.id gt 0 ? 'Update Staff Account' : 'Create User Account'}"></span>
+								</button>
+							</div>
+
+							
+						</form>
+
+					</div>
+				</div>
+
+
+			</div>
+
+
+			
+
+		</section>
+
+	</div>
+
+</body>
+
+</html>
+

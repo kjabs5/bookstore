@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+</head>
+<body>
+<div th:remove="tag" th:fragment="form">
+		<div class="alert alert-warning" th:if="${!#strings.isEmpty(info)}">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<i class="icon-flash"></i> <span th:utext="${info}"></span>
+		</div>
+		<div class="alert alert-danger" th:if="${!#strings.isEmpty(error)}">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<i class="icon-warning2"></i><span th:utext="${error}"></span>
+		</div>
+		<div class="alert alert-success" th:if="${!#strings.isEmpty(success)}">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<i class="icon-tick"></i><span th:utext="${success}"></span>
+		</div>
+		<div class="table-forms">
+		  <form th:action="${category.category_id != null AND category.category_id gt 0 ? '/Category/updateTheCategory' : '/Category/saveCategory'}" th:object="${category}"
+							method="post">
+						
+							<input th:if="${category.category_id != null AND category.category_id gt 0}" type="hidden" th:field="*{category_id}" />
+							
+							<div class="form-group">
+								<label for="uname">Category Name:</label> <input type="text"
+									class="form-control" id="categoryname" placeholder="Enter Category Name"
+									th:field="*{categoryName}">
+                                <div class="error-msg"
+								th:if="${#fields.hasErrors('categoryName')}"
+								th:errors="*{categoryName}"></div>
+							</div>
+							
+							<div class="centerr">
+								<button type="submit" class="btn btn-warning">
+								<span th:utext="${category.category_id != null AND category.category_id gt 0 ? 'Update Category Name' : 'Create New Category'}"></span>
+								</button>
+							</div>
+
+							
+						</form>
+		  
+		
+		</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="../css/style1.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400&display=swap"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Bree+Serif&display=swap"
+	rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"
+	integrity="sha256-JtQPj/3xub8oapVMaIijPNoM0DHoAtgh/gwFYuN5rik="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
+	integrity="sha256-jDnOKIOq2KNsQZTcBTEnsp76FnfMEttF6AV2DF2fFNE="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	crossorigin="anonymous"></script>
+<title>Static Website1</title>
+
+
+
+</head>
+
+<body>
+	<section id="header">
+		<div class="container">
+		<div th:replace="fragments :: admin_menu"></div>
+
+
+		</div>
+
+	</section>
+	<section>
+	<div sec:authorize="hasAuthority('ADMIN')" class="userheading centerr my-3">
+				<h1>ADMIN DASHBOARD</h1>
+	</div>
+	<div sec:authorize="hasAuthority('STAFF')" class="userheading centerr my-3">
+				<h1>STAFF DASHBOARD</h1>
+	</div>
+	
+	<div class="userheading centerr mb-2">
+	  <b> <i>QUICK ACTIONS</i></b>
+	</div>
+	<hr>
+	   <div class="row centerr">
+	   <div><a th:href="@{'/Book/bookform/'}" class="btn btn-success btn-sm mx-3">ADD A BOOK</a></div>
+ 	   <div><a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/Admin/usersForm/'}" class="btn btn-success btn-sm mx-3">ADD A STAFF</a></div>
+	   <div><a th:href="@{'/Category/createCategory'}" class="btn btn-success btn-sm mx-3">ADD A CATEGORY</a></div>
+	  
+	   </div>
+	   <hr>
+	<div class="userheading centerr mb-2">
+	  <h3> RECENT SALES</h3>
+	</div>
+	<div class="container">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-light">
+							<tr>
+								<th>SERIAL NO.</th>
+								<th>ORDER ID</th>
+								<th>ORDERED BY</th>
+								<th>BOOK COPIES</th>
+								<th>TOTAL</th>
+								<th>PAYMENT METHOD</th>
+								<th>STATUS</th>
+								<th>ORDER DATE</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="order,iterStat : ${mostRecentSales}">
+                                
+								<td th:text="${iterStat.count}" />
+								<td th:text="${order.orderId}" />
+								<td th:text="${order.customer.fullname}" /> 
+								<td th:text="${order.bookCopies}" />
+								<td th:text="${order.total}" />
+								<td th:text="${order.paymentMethod}" />
+								<td th:text="${order.status}" />
+ 								<td th:text="${order.orderDate}" /> 
+								
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			
+
+			</div>
+		<div class="userheading centerr mb-2">
+	  <h3> RECENT REVIEWS</h3>
+	</div>
+		<div class="container">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-light">
+							<tr>
+								<th>SERIAL NO.</th>
+								<th>REVIEW ID</th>
+								<th>BOOK</th>
+								<th>RATING</th>
+								<th>HEADLINE</th>
+								<th>CUSTOMER</th>
+								<th>REVIEW ON</th>
+							
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="review,iterStat : ${mostRecentReviews}">
+                                
+								<td th:text="${iterStat.count}" />
+								<td th:text="${review.reviewId}" />
+								<td th:text="${review.book.title}" /> 
+								<td th:text="${review.rating}" /> 
+								<td th:text="${review.headline}" /> 
+								<td th:text="${review.customer.fullname}" />
+								<td th:text="${review.reviewTime}" />
+						
+							
+
+
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+	
+	       </div>
+	
+			
+	
+	
+	
+	</section>
+
+</body>
+
+</html>
+

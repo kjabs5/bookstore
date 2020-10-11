@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments_customer :: html_head(type='none')">
+
+</head>
+
+
+
+<body>
+	<section id="header">
+	
+	<div th:replace="fragments_customer :: customer_menu"></div>
+
+
+	
+
+	</section>
+	<section id="ProfileSection">
+			<div class="userheading centerr my-3">
+				<h1>My Profile</h1>
+			</div>
+			
+
+			<div class="container-fluid">
+			  <div class="centerr">
+				<div class="col-md-6">
+					<table class="table table-bordered table-hover">
+						<tbody class="thead-light">
+							<tr><td><b>EMAIL</b></td><td>[[${customer.email}]]</td></tr>
+							<tr><td><b>FULL NAME</b></td><td>[[${customer.fullname}]]</td></tr>
+							<tr><td><b>HOME/UNIT ADDRESS</b></td><td>[[${customer.address}]]</td></tr>
+							<tr><td><b>CITY</b></td><td>[[${customer.city}]]</td></tr>
+							<tr><td><b>COUNTRY</b></td><td>[[${customer.country}]]</td></tr>
+							<tr><td><b>PHONE</b></td><td>[[${customer.phone}]]</td></tr>
+							<tr><td><b>POSTCODE</b></td><td>[[${customer.postcode}]]</td></tr>
+						
+							
+							
+							
+							
+						</tbody>
+						
+					</table>
+					
+					 <table class="normal">
+		       <tr><td>&nbsp;</td></tr>
+		        <tr class="mx-3">
+		          <td></td>
+		        
+		          <td><a class="btn btn-success mx-4" th:href="@{'/Customer/customerUpdate/'+${customer.id}}">EDIT MY PROFILE</a></td>
+		          <td><a class="btn btn-warning mx-4" th:href="@{'/'}">BACK TO SHOP</a></td>
+		        </tr>
+		       
+		       </table>
+				</div>
+			</div>
+
+			</div>
+
+		</section>
+
+<div th:replace="fragments_customer :: customer_footer"></div>
+
+</body>
+
+</html>

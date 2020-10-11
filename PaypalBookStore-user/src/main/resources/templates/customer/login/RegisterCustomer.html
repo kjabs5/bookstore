@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Register for Paypal Book Store</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
+        integrity="sha256-jDnOKIOq2KNsQZTcBTEnsp76FnfMEttF6AV2DF2fFNE=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+	<section id="header">
+		<div class="container">
+			<div class="centerr">
+				<a th:href="@{'/'}"> <img src="/images/Bookstorelogo.png" />
+				</a>
+			</div>
+		</div>
+	</section>	
+	<section id="registrationForm">
+			<div class="container centerr">
+ 				<div class="col-lg-8 col-md-8 col-10 offset-lg-2 offset-md-2 offset-col-1 centerr"> 
+					<form th:action="@{/Customer/registerTheCustomer}" th:object="${user}" method="post">
+					 <input type="hidden" th:field="*{id}"/>
+						<div class="form-group row">
+							<label for="Username" class="col-sm-2 col-form-label centerr">Username</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="Username"
+									placeholder="Enter your username" th:field="*{username}" required />
+							</div>
+						</div>
+
+
+						<div class="form-group row">
+							<label for="Password" class="col-sm-2 col-form-label centerr">Password</label>
+							<div class="col-sm-6">
+								<input type="password" class="form-control" id="Password"
+									placeholder="Enter Password" th:field="*{password}" required
+									oninvalid="this.setCustomValidity('Please enter password')"
+									oninput="this.setCustomValidity('')" />
+							</div>
+						</div>
+						
+                         <div class="form-group row">
+							<label for="Password" class="col-sm-2 col-form-label centerr">Password Hint</label>
+							<div class="col-sm-6">
+								<input type="password" class="form-control" id="Password"
+									placeholder="Enter Password" th:field="*{password_hint}" required
+									oninvalid="this.setCustomValidity('Please enter password Hint')"
+									oninput="this.setCustomValidity('')" />
+							</div>
+						</div>
+						
+
+						<div class="form-group row">
+							<label for="file" class="col-sm-2 col-form-label"></label>
+							<div class="col-sm-6">
+								<button type="submit" class="btn btn-primary">Register</button>
+							</div>
+						</div>
+					</form>
+
+ 				</div> 
+
+			</div>
+			</section>
+	</div>	
+</body>
+</html>

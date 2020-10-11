@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments_customer :: html_head(type='none')">
+</head>
+
+<body>
+	<section id="header">
+	
+	<div th:replace="fragments_customer :: customer_menu"></div>
+
+
+	
+
+	</section>
+	<div class="container-fluid">
+  
+		<section id="usersection">
+			<div class="userheading centerr my-3">
+				<h1>Details for OrderId:[[${orders.orderId}]]</h1>
+			</div>
+			
+
+			<div class="container-fluid">
+			  <div class="centerr">
+				<div class="col-md-6">
+					<table class="table table-bordered table-hover">
+						<tbody class="thead-light">
+							<tr><td><b>ORDERED BY</b></td><td>[[${orders.customer.fullname}]]</td></tr>
+							<tr><td><b>BOOK COPIES</b></td><td>[[${orders.bookCopies}]]</td></tr>
+							<tr><td><b>TOTAL</b></td><td>[[${orders.total}]]</td></tr>
+							<tr><td><b>RECIPIENT NAME</b></td><td>[[${orders.recipientName}]]</td></tr>
+							<tr><td><b>RECIPIENT PHONE</b></td><td>[[${orders.recipientPhone}]]</td></tr>
+							<tr><td><b>SHIPPING ADDRESS</b></td><td>[[${orders.shippingAddress}]]</td></tr>
+							<tr><td><b>PAYMENT METHOD</b></td><td>[[${orders.paymentMethod}]]</td></tr>
+							<tr><td><b>STATUS</b></td><td>[[${orders.status}]]</td></tr>
+							<tr><td><b>ORDER DATE</b></td><td>[[${orders.orderDate}]]</td></tr>
+							
+							
+							
+						</tbody>
+						
+					</table>
+				</div>
+			</div>
+
+			</div>
+			<div class="userheading centerr my-3">
+				<h1>ORDERED BOOK DETAILS</h1>
+			</div>
+			<div class="container-fluid">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-light">
+							<tr>
+								<th>SERIAL NO.</th>
+								<th>BOOK TITLE</th>
+								<th>AUTHOR</th>
+								<th>PRICE</th>
+								<th>QUANTITY</th>
+								<th>SUBTOTAL</th>
+								
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="orderDetail,iterStat : ${orders.orderDetails}">
+                                
+								<td th:text="${iterStat.count}" />
+								<td th:text="${orderDetail.book.title}" />
+								<td th:text="${orderDetail.book.author}" /> 
+								<td th:text="${orderDetail.book.price}" />
+								<td th:text="${orderDetail.quantity}" />
+								<td th:text="${orderDetail.subtotal}" />
+						 
+							
+
+
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			
+
+			</div>
+
+		</section>
+		
+		<div th:replace="fragments_customer :: customer_footer"></div>
+
+	</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head(type='none')">
+</head>
+
+<body>
+	<div class="container-fluid">
+
+		<div th:replace="fragments :: admin_menu"></div>
+		<section id="usersection">
+			<div class="userheading centerr my-3">
+				<h1>REVIEWS INFORMATION</h1>
+			</div>
+	
+			<div class="container alert alert-success text-center" th:if="${message!=null}">
+			   
+			   [[${message}]]
+			   
+			</div>
+
+			<div class="container-fluid">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-light">
+							<tr>
+								<th>SERIAL NO.</th>
+								<th>REVIEW ID</th>
+								<th>BOOK</th>
+								<th>RATING</th>
+								<th>HEADLINE</th>
+								<th>CUSTOMER</th>
+								<th>REVIEW ON</th>
+								<th sec:authorize="hasAnyAuthority('ADMIN')">Action</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="review,iterStat : ${reviews}">
+                                
+								<td th:text="${iterStat.count}" />
+								<td th:text="${review.reviewId}" />
+								<td th:text="${review.book.title}" /> 
+								<td th:text="${review.rating}" /> 
+								<td th:text="${review.headline}" /> 
+								<td th:text="${review.customer.fullname}" />
+								<td th:text="${review.reviewTime}" />
+						
+								<td class="centerr"
+									sec:authorize="hasAnyAuthority('ADMIN')">
+									
+
+									<div class="centerr" sec:authorize="hasAuthority('ADMIN')">
+										<a th:href="@{'/Admin/reviewsDelete/'+${review.reviewId}}"
+											class="btn btn-danger btn-sm mb-3"
+											onclick="if (!(confirm('Are you sure you want to delete this?'))) return false">
+											Delete </a>
+									</div>
+								</td>
+
+
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="centerr my-3">
+				Total Items: [[${totalItems}]] - page [[${currentPage}]] of total
+					[[${totalPages}]] pages - <span class="ml-2"
+						th:each="i:${#numbers.sequence(1,totalPages)}"> 
+						<!-- 			   <a class="mx-1" th:href="@{'page/' + ${i}}">[[${i}]]</a> -->
+						<a class="mx-1" th:if="${currentPage != i}"
+						th:href="@{'/Admin/reviewspage/' + ${i}}">[[${i}]]</a> <span class="mx-1"
+						th:unless="${currentPage != i}">[[${i}]]</span>
+					</span>
+				
+
+				</div>
+				
+
+			</div>
+
+		</section>
+
+	</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head(type='none')">
+
+</head>
+
+<body>
+	<div class="container-fluid">
+
+		<div th:replace="fragments :: admin_menu"></div>
+		<section id="FormSection" class="my-4">
+		 <div class="container centerr">
+
+				<div class="card" style="width: 22rem;">
+					<div class="card-header centerr">Create Staff Account</div>
+					<div class="card-body">
+						<h5 class="card-title">Create Staff Account </h5>
+						<div th:remove="tag" th:replace="admin/user/_Form :: form"></div>
+					</div>
+				</div>
+
+
+			</div>
+
+
+			
+
+		</section>
+
+	</div>
+
+</body>
+
+</html>
+
