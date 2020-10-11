@@ -1,5 +1,4 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
@@ -7,8 +6,7 @@ phases:
     commands:
       - echo install
   pre_build:
-    
-    commands:
+     commands:
       - echo pre_build
    
   build:
@@ -21,6 +19,6 @@ phases:
 
 artifacts:
   files:
-    - target\PaypalBookStore-0.0.1-SNAPSHOT.war
+    - target/PaypalBookStore-0.0.1-SNAPSHOT.war
     
   
