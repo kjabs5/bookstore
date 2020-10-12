@@ -6,9 +6,8 @@ phases:
     commands:
       - echo install
   pre_build:
-     commands:
+    commands:
       - echo pre_build
-   
   build:
     commands:
       - mvn package
@@ -16,7 +15,6 @@ phases:
   post_build:
     commands:
       - echo post_build
-
 artifacts:
   files:
     - target/PaypalBookStore-0.0.1-SNAPSHOT.war
